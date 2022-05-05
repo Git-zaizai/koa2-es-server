@@ -13,14 +13,6 @@ dist-ssr
 *.local
 test-js
 
-/public/img/*
-!public/img/
-
-/public/uploads/*
-!public/uploads/
-
-/public/uploads_file/*
-!public/uploads_files/
 
 # Editor directories and files
 yarn.lock
