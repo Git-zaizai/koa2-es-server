@@ -13,7 +13,6 @@ dist-ssr
 *.local
 test-js
 
-
 # Editor directories and files
 yarn.lock
 .vscode/*
