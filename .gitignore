@@ -13,6 +13,15 @@ dist-ssr
 *.local
 test-js
 
+/public/img/*
+!/public/img/
+
+/public/uploads_file/*
+!/public/uploads_file/
+
+/public/uploads/*
+!/public/uploads/
+
 # Editor directories and files
 yarn.lock
 .vscode/*
