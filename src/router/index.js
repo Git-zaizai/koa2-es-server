@@ -13,5 +13,4 @@ useRouters(router, 'controller')
 router.get('/get', ctx => {
     ctx.body = {code: 1, msg: '请求成功', data: '这个是测试路由'}
 })
-
 export default router

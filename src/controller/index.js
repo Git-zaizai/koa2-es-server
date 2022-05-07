@@ -8,7 +8,17 @@ export default [
         async init(ctx, next) {
             try {
                 const file = ctx.request.files.files
-                const useuploadret = await useUpload(file)
+                let useuploadret = []
+                if (Array.isArray(file)) {
+                    for (const fileElement of file) {
+                        let useupload = await useUpload(file)
+                        useuploadret.push(useupload)
+                    }
+                } else {
+                    let useupload = await useUpload(file)
+                    useuploadret.push(useupload)
+                }
+
                 ctx.body = {
                     code: 1,
                     msg: '上传成功',

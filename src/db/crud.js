@@ -1,7 +1,7 @@
 import query from './config.js'
 
 function testingTltieName(tltiename) {
-    if (typeof tltiename === "string") {
+    if (typeof tltiename !== "string") {
         throw new Error('Error: CRUD错误 tltiename 必须是字符串类型')
     }
     if (tltiename === '' || tltiename === undefined || tltiename === null) {
@@ -13,7 +13,7 @@ function testingData(data) {
     if (typeof data !== 'object' || Array.isArray(data)) {
         throw new Error('Error: CRUD错误 实参必须是object类型')
     }
-    return [data]
+    return data
 }
 
 /**
@@ -40,7 +40,7 @@ export const selectWhere = async (tltiename, where = {}) => {
  * */
 export const insert = async (tltiename, data = {}) => {
     const setdata = testingData(data);
-    return await query(`insert into ${tltiename} set ?`, setdata)
+    return await query(`insert into ${tltiename} set ?`, [setdata])
 }
 
 /**

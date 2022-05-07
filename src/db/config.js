@@ -1,13 +1,14 @@
 import mysql from 'mysql2'
+import config from '../config/mysql-config.js'
 
 const db = mysql.createPool({
     //创建连接池
     host: 'localhost',
     port: 3306,
-    user: 'root',
-    password: '123456',
-    database: 'gitconfigzaizai', //数据库名称
-    connectionLimit: 10, //连接池大小
+    user: config.user,
+    password: config.password,
+    database: config.database, //数据库名称
+    connectionLimit: config.connectionLimit, //连接池大小
 });
 
 export default function query(sql, setup = []) {
