@@ -1,5 +1,5 @@
-import {useUpload} from '../hooks/useUpload.js'
-import {jwtSign, jwtVerify} from '../utils/jwt.js'
+import { useUpload } from '../hooks/useUpload.js'
+import { jwtSign, jwtVerify } from '../utils/jwt.js'
 
 export default [
     {
@@ -54,6 +54,16 @@ export default [
             ctx.body = {
                 code: 200,
                 data: tokenObject
+            }
+        }
+    },
+    {
+        routerModule: 'get',
+        url: '/token',
+        init(ctx) {
+            ctx.body = {
+                code: 200,
+                msg: '访问成功'
             }
         }
     }

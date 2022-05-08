@@ -2,7 +2,7 @@
  * 路由
  * */
 import koarouter from 'koa-router'
-import {useRouters} from "./useRouter-utils.js"
+import {useRouters} from "../hooks/useRouter.js"
 
 const router = new koarouter()
 /**

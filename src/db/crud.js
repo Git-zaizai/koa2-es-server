@@ -1,4 +1,4 @@
-import query from './config.js'
+import query from './db.js'
 
 function testingTltieName(tltiename) {
     if (typeof tltiename !== "string") {

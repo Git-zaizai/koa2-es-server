@@ -39,7 +39,7 @@ export default [
                 if (crudtyle === 3) {
                     const { add } = ctx.request.body
                     await ctx.$crud.insert('user', add)
-                    //自定义sql
+                    //自定义sql语句
                     result = await ctx.$query(`select * from user order by id desc limit 1`)
                     body.data = result
                     body.msg = '添加成功'

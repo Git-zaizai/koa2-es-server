@@ -52,7 +52,7 @@
     <button class="to-but">创建token</button>
     &emsp;&emsp;
     <button class="to-vsbut">解密token</button>
-
+    &emsp;&emsp;
     <button class="to-select-token">访问会检测token的接口</button>
     <div class="to-so">
         <span>token：</span>
@@ -180,11 +180,14 @@
     }
 
     document.querySelector('.to-select-token').onclick = function () {
+        axios.defaults.headers.common['token'] = token
         axios.get('/token').then(res => {
             alert('访问成功')
+            console.log('请求 /token 接口',res)
         }).catch(e => {
             console.log('请求 /token 接口失败:', e)
-            alert('访问失败，可以打开控制台查看错误信息')
+            alert(e.response.data)
+            document.querySelector('.to-so').querySelector('p').innerHTML = '访问失败，可以打开控制台查看错误信息'
         })
     }
 
