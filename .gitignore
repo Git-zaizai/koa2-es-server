@@ -14,13 +14,9 @@ dist-ssr
 test-js
 
 public/img/*
-!/public/img/img.log
-
 public/uploads_file/*
-!/public/uploads_file/img.log
-
 public/uploads/*
-!/public/uploads/img.log
+!.gitignore
 
 # Editor directories and files
 yarn.lock

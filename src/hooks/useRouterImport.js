@@ -2,7 +2,6 @@ import { readdirSync, statSync } from "fs";
 import { join, resolve } from "path";
 import { pathToFileURL } from "url";
 
-
 /**
  * @function 解析导入的模块
  * @param module  module = {
@@ -44,7 +43,7 @@ export function routersPush(route, defaultmodule) {
  * @param route koa-router的实例
  * @param path 要导入的目录
  * */
-export const useRouters = async (route, path) => {
+export const useRouterImport = async (route, path) => {
     const pathresolve = resolve('src', path)
     for (const fileitem of readdirSync(pathresolve)) {
         const fileItemPaht = join(pathresolve, fileitem)

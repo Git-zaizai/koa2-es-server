@@ -4,53 +4,49 @@ import serve from 'koa-static'
 import koabody from 'koa-body'
 import koalogger from 'koa-logger'
 import { resolve } from 'path'
-
 import { uploads } from './src/config/path-upload.js'
 import query from './src/db/db.js'
 import crud from "./src/db/crud.js"
-import router from './src/router/index.js'
+import routerSetup from './src/router/index.js'
 import useToken from "./src/hooks/useJwt.js";
-import urlToken from './src/config/url-jwt.js'
-
-// import currentpath from './src/types/currentpath.js'
-
-const app = new koa()
-const port = 4370
-// const {__dirname} = currentpath(import.meta.url)
-
-app.context.$query = query
-app.context.$crud = crud
+import routerUrlToken from './src/config/url-jwt.js'
 
 
-app
-    .use(
-        koacors({
-            // 跨域处理
-            // 允许携带cookies
-            credentials: true,
-        }),
-    )
-    .use(serve(resolve('./public')))
-    .use(
-        koabody({
-            formidable: {
-                //设置存放的是上传二进制文件
-                // uploadDir: path.join(__dirname + '/src/uploads'),
-                uploadDir: uploads,
-                multipart: true,
-            },
-            multipart: true, // 支持文件上传
-        }),
-    )
-    .use(koalogger())
-    .use(useToken(urlToken))
-    .use(router.routes(), router.allowedMethods())
+async function createApp() {
+    const create = new koa()
 
-// 启动
-app.listen(port, () => {
-    console.log('服务启动成功！')
-    console.log('Server is running at http://localhost:' + port)
-})
+    create.context.$query = query
+    create.context.$crud = crud
 
 
+    create
+        .use(
+            koacors({
+                // 跨域处理
+                // 允许携带cookies
+                credentials: true,
+            }),
+        )
+        .use(serve(resolve('./public')))
+        .use(
+            koabody({
+                formidable: {
+                    //设置存放的是上传二进制文件
+                    // uploadDir: path.join(__dirname + '/src/uploads'),
+                    uploadDir: uploads,
+                    multipart: true,
+                },
+                multipart: true, // 支持文件上传
+            }),
+        )
+        .use(koalogger())
+        .use(useToken(routerUrlToken))
 
+    const router = await routerSetup()
+    create.use(router.routes(), router.allowedMethods())
+
+    return { app: create, port: 4370 }
+}
+
+
+export default createApp
