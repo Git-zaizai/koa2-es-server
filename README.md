@@ -1,15 +1,19 @@
 # koa 2x text-cli
 
-前言：一个基于koa.js 2x的简单后端api脚手架 O(∩_∩)O。这个小工具可以用来学习交流或者简单的搞一下后端，不推荐使用正式的项目，问题有很多请注意哦 ！
+## 前言
+
+一个基于koa.js 2x的简单后端api脚手架 O(∩_∩)O。这个小工具可以用来学习交流或者简单的搞一下后端，不推荐使用正式的项目，问题有很多请注意哦 ！
 
 由于是使用ES模块规范，没有使用CommonJS 规范，也没有使用babel进行兼容有些地方请去官网了解（大部分都可以使用）
 
+麻雀虽小，但是能用，是非常适合新手学习，在其中也写了几个示例可以借用玩一玩，也可以在修改玩玩
 
+**变通**，乃开发者应具备的不二神器。
 
-## Getting Start
+## 本地启动
 
 ```
-git clone https://github.com/17koa/koa2-startkit.git
+git clone https://github.com/Git-zaizai/koa-cli-test.git
 git clone https://github.91chi.fun/https://github.com/Git-zaizai/koa-cli-test.git  加速通道
 cd koa-cli-test
 yarn
@@ -33,7 +37,7 @@ yran mon  自动热重启服务 | node app.js
 		├──mysql-config.js # mysql配置
 		├──path-upload.js # 对于文件上传的配置
 		├──url-jwt.js # Jwt路由认证配置
-	├──controller # api编写目录 会自动导入自动注册路由 *有一定的规范*
+	├──controller # api编写目录 可以自动导入自动注册路由 *有一定的规范*
 		├──index.js # 一些示例
 		├──sql.js # 数据库操作示例
 	├──db
@@ -42,6 +46,7 @@ yran mon  自动热重启服务 | node app.js
 	├──hooks # 中间件或hooks函数
 		├──useJwt.js # 路由Jwt认证中间件
 		├──useUpload.js # 文件上传hooks函数
+		├──useRouterImport.js # 自动导入路由hooks函数
 	├──router # 路由
 		├──index.js
 	├──types # 一些声明
@@ -73,3 +78,11 @@ yran mon  自动热重启服务 | node app.js
    "nodemon": "^2.0.15"
 }
 ```
+
+## 最后
+
+在整个搭建的过程中，会遇到各种各样的问题。但是正是这些问题，会让我们成长，也认识到自己的微不足道，同时也鞭策着我们不断前行，愈战愈勇。
+
+这个是我第一次写一个后端应用脚手架，所以难免程序中，会存在一些瑕疵，望包含。同时如果有一些疑惑点或者是建议，可以提`issue`。
+
+如果这个东西，给你启示或是成长，请为我点亮一颗小星星
