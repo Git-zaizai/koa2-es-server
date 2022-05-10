@@ -13,7 +13,8 @@ router.get('/get', ctx => {
 export default async () => {
     // const routeImport = new koarouter()
     //自动注册路由
-    await useRouterImport(router, 'controller')
+    await useRouterImport(router, { path: 'controller' })
     // router.use(routeImport.routes(), routeImport.allowedMethods())
+    // console.log(router)
     return router
 }

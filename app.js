@@ -12,12 +12,11 @@ import useToken from "./src/hooks/useJwt.js";
 import routerUrlToken from './src/config/url-jwt.js'
 
 
-async function createApp() {
+export default async function createApp() {
     const create = new koa()
 
     create.context.$query = query
     create.context.$crud = crud
-
 
     create
         .use(
@@ -47,6 +46,3 @@ async function createApp() {
 
     return { app: create, port: 4370 }
 }
-
-
-export default createApp

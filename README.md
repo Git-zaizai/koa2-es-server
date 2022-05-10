@@ -46,10 +46,10 @@ yran mon  自动热重启服务 | node app.js
 	├──hooks # 中间件或hooks函数
 		├──useJwt.js # 路由Jwt认证中间件
 		├──useUpload.js # 文件上传hooks函数
-		├──useRouterImport.js # 自动导入路由hooks函数
+		├──useRouterImport.js # 自动导入注册路由函数
 	├──router # 路由
 		├──index.js
-	├──types # 一些声明
+	├──types
 		├──currentpath.js # 声明 __filename | __dirname
 	├──utils
 		├──axios # axios
@@ -81,7 +81,62 @@ yran mon  自动热重启服务 | node app.js
 
 ## 自动注册路由
 
+#### 使用
 
+```javascript
+// router.js
+import koarouter from 'koa-router'
+import { useRouterImport } from "../hooks/useRouterImport.js"
+const router = new koarouter()
+export default async () => {
+    //自动注册路由
+    //path 要自动导入的目录名
+    await useRouterImport(router, { path: 'controller' })
+    return router
+}
+
+// app.js
+const router = routerSetup()
+app.use(router.routes(), router.allowedMethods())
+```
+
+##### useRouterImport 参数
+
+``` javascript
+(
+    router: koarouter的实例
+    opts：{  可选参数
+    	path：自动导入的目录名
+    	defaultRequestmethod: 'post' 默认接口的请求方式
+	}
+)
+```
+
+#### 可以导出的格式
+
+```javascript
+export default function(){}
+
+export default {
+    url:'', // 可选
+    method:'', // 可选
+    fun(){} // 必须
+}
+
+export default[{
+    url:'', //必须
+    method:'', // 可选
+    fun(){} // 必须
+},{
+    url:'', // 必须
+    method:'', // 可选
+    fun(){} // 必须
+}]
+```
+
+当导出函数时，**url路径为文件名**,**method默认为post**，导出对象时**不写url或者url开头不是 "/"，url默认为文件名**，以数组的方式导出**url是必须的**，暂不支持添加url 
+
+当然你也可以自行注册路由
 
 ## 版本
 
