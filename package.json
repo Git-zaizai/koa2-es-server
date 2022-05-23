@@ -2,11 +2,11 @@
   "name": "koa2-es6",
   "type": "module",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "src/app.js",
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node app.js",
+    "serve": "node src/app.js",
     "mon": "nodemon main.js"
   },
   "dependencies": {

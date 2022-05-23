@@ -10,7 +10,7 @@ import { pathToFileURL } from "url";
 export function getFunction(module) {
     for (const key in module) {
         if (typeof module[key] === 'function') {
-            return module[key];
+            return modue[key];
         }
     }
     throw new Error('Error: 路由函数未定义！')

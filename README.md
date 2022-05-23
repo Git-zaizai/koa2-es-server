@@ -100,7 +100,7 @@ const router = routerSetup()
 app.use(router.routes(), router.allowedMethods())
 ```
 
-##### useRouterImport 参数
+#### useRouterImport 参数
 
 ``` javascript
 (
@@ -134,9 +134,9 @@ export default[{
 }]
 ```
 
-当导出函数时，**url路径为文件名**,**method默认为post**，导出对象时**不写url或者url开头不是 "/"，url默认为文件名**，以数组的方式导出**url是必须的**，暂不支持添加url 
+当导出函数时，**url路径为文件名**,**method默认为post**，导出对象时**不写url或者url开头不是 "/"，url默认为文件名**，以数组的方式导出**url是必须的**，暂不支持添加url ,当然你也可以自行注册路由api
 
-当然你也可以自行注册路由
+
 
 ## 版本
 

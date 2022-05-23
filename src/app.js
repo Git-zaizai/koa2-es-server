@@ -4,12 +4,12 @@ import serve from 'koa-static'
 import koabody from 'koa-body'
 import koalogger from 'koa-logger'
 import { resolve } from 'path'
-import { uploads } from './src/config/path-upload.js'
-import query from './src/db/db.js'
-import crud from "./src/db/crud.js"
-import routerSetup from './src/router/index.js'
-import useToken from "./src/hooks/useJwt.js";
-import routerUrlToken from './src/config/url-jwt.js'
+import { uploads } from './config/path-upload.js'
+import query from './db/db.js'
+import crud from "./db/crud.js"
+import routerSetup from './router'
+import useToken from "./hooks/useJwt.js";
+import routerUrlToken from './config/url-jwt.js'
 
 
 export default async function createApp() {
