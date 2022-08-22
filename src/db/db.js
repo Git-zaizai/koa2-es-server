@@ -3,8 +3,8 @@ import config from '../config/mysql-config.js'
 
 const db = mysql.createPool({
     //创建连接池
-    host: 'localhost',
-    port: 3306,
+    host: config.host,
+    port: config.port,
     user: config.user,
     password: config.password,
     database: config.database, //数据库名称

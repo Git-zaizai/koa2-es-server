@@ -7,7 +7,7 @@ import { resolve } from 'path'
 import { uploads } from './config/path-upload.js'
 import query from './db/db.js'
 import crud from "./db/crud.js"
-import routerSetup from './router'
+import routerSetup from './router/index.js'
 import useToken from "./hooks/useJwt.js";
 import routerUrlToken from './config/url-jwt.js'
 

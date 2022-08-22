@@ -77,7 +77,7 @@ export async function useUpload(file) {
         // 原始文件名
         const name = file.name
         // 文件类型
-        const type = file.type.split('/').pop()
+        const type = file.name.split('.').pop()
         // 文件大小
         const size = file.size
         // 重命名文件

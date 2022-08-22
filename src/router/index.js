@@ -15,6 +15,5 @@ export default async () => {
     //自动注册路由
     await useRouterImport(router, { path: 'controller' })
     // router.use(routeImport.routes(), routeImport.allowedMethods())
-    // console.log(router)
     return router
 }
