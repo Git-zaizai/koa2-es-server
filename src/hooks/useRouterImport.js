@@ -7,12 +7,12 @@ import { pathToFileURL } from "url";
  * @param Object Object import()导入的对象
  * */
 export function getFunction (module) {
-	for (const key in module) {
-		if (typeof module[key] === 'function') {
-			return module[key];
+		for (const key in module) {
+				if (typeof module[key] === 'function') {
+						return module[key];
+				}
 		}
-	}
-	throw new Error('Error: 路由函数未定义！')
+		throw new Error('Error: 路由函数未定义！')
 }
 
 /**
@@ -20,10 +20,10 @@ export function getFunction (module) {
  * @param string url 路由url
  * */
 export function isurl (url) {
-	if (url && url !== '' && /^([/])/.test(url)) {
-		return true
-	}
-	return false
+		if (url && url !== '' && /^([/])/.test(url)) {
+				return true
+		}
+		return false
 }
 
 /**
@@ -31,7 +31,7 @@ export function isurl (url) {
  * @param string 文件路径
  * */
 function geturl (filepath) {
-	return '/' + filepath.split('\\').pop().split('.').shift()
+		return '/' + filepath.split('\\').pop().split('.').shift()
 }
 
 /**
@@ -39,11 +39,11 @@ function geturl (filepath) {
  * @param string method
  * */
 export function ismethod (method) {
-	if (method && method !== '') {
-		const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE']
-		if (methodfun.includes(method.toUpperCase())) return true
-	}
-	return false
+		if (method && method !== '') {
+				const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE']
+				if (methodfun.includes(method.toUpperCase())) return true
+		}
+		return false
 }
 
 /**
@@ -52,38 +52,38 @@ export function ismethod (method) {
  * @param method 默认的请求方法
  * */
 export function routersPush (defaultmodule, defaultmethod, filepath) {
-	const routeList = []
-	// 导出的是函数的话，使用默认请求配置，文件名为url路径
-	if (typeof defaultmodule === 'function') {
-		routeList.push({
-			method: defaultmethod,
-			url: geturl(filepath),
-			fun: defaultmodule
-		})
-	} else if (Array.isArray(defaultmodule)) {
-		defaultmodule.forEach(item => {
-			if (isurl(item.url)) {
+		const routeList = []
+		// 导出的是函数的话，使用默认请求配置，文件名为url路径
+		if (typeof defaultmodule === 'function') {
 				routeList.push({
-					url: item.url,
-					method: ismethod(item.routerModule) ? item.routerModule : defaultmethod,
-					fun: getFunction(item)
+						method: defaultmethod,
+						url: geturl(filepath),
+						fun: defaultmodule
 				})
-			} else {
-				throw new Error('Error: 路由 method 属性错误！')
-			}
-		})
-	} else {
-		//导出格式为Object 但是url有问题
-		if (!isurl(defaultmodule.url)) {
-			defaultmodule.url = geturl(filepath)
+		} else if (Array.isArray(defaultmodule)) {
+				defaultmodule.forEach(item => {
+						if (isurl(item.url)) {
+								routeList.push({
+										url: item.url,
+										method: ismethod(item.routerModule) ? item.routerModule : defaultmethod,
+										fun: getFunction(item)
+								})
+						} else {
+								throw new Error('Error: 路由 method 属性错误！')
+						}
+				})
+		} else {
+				//导出格式为Object 但是url有问题
+				if (!isurl(defaultmodule.url)) {
+						defaultmodule.url = geturl(filepath)
+				}
+				routeList.push({
+						url: defaultmodule.url,
+						method: ismethod(defaultmodule.routerModule) ? defaultmodule.routerModule : defaultmethod,
+						fun: getFunction(defaultmodule)
+				})
 		}
-		routeList.push({
-			url: defaultmodule.url,
-			method: ismethod(defaultmodule.routerModule) ? defaultmodule.routerModule : defaultmethod,
-			fun: getFunction(defaultmodule)
-		})
-	}
-	return routeList
+		return routeList
 }
 
 /**
@@ -95,29 +95,28 @@ export function routersPush (defaultmodule, defaultmethod, filepath) {
  * }
  * */
 export const useRouterImport = async (route, opts) => {
-	const middleware = Object.assign({
-		path: 'controller',
-		defaultRequestmethod: 'post'
-	}, opts)
-	const pathresolve = resolve('src', middleware.path)
-	for (const fileitem of readdirSync(pathresolve)) {
-		const fileItemPaht = join(pathresolve, fileitem)
-		if (statSync(fileItemPaht).isDirectory()) {
-			useRouterImport(fileItemPaht)
-		} else {
-			// pathToFileURL(fileItemPaht) 把绝对路径转换为 file:///c:/***** 路径
-			const itemModule = await import(
-				pathToFileURL(fileItemPaht).href)
-			if (itemModule.default) { // 判断有没有默认导出
-				const routelist = routersPush(
-					itemModule.default,
-					middleware.defaultRequestmethod,
-					fileItemPaht)
-				console.log(routelist)
-				routelist.forEach(item => {
-					route[item.method](item.url, item.fun)
-				})
-			}
+		const middleware = Object.assign({
+				path: 'controller',
+				defaultRequestmethod: 'post'
+		}, opts)
+		const pathresolve = resolve('src', middleware.path)
+		for (const fileitem of readdirSync(pathresolve)) {
+				const fileItemPaht = join(pathresolve, fileitem)
+				if (statSync(fileItemPaht).isDirectory()) {
+						useRouterImport(fileItemPaht)
+				} else {
+						// pathToFileURL(fileItemPaht) 把绝对路径转换为 file:///c:/***** 路径
+						const itemModule = await import(
+							pathToFileURL(fileItemPaht).href)
+						if (itemModule.default) { // 判断有没有默认导出
+								const routelist = routersPush(
+									itemModule.default,
+									middleware.defaultRequestmethod,
+									fileItemPaht)
+								routelist.forEach(item => {
+										route[item.method](item.url, item.fun)
+								})
+						}
+				}
 		}
-	}
 }

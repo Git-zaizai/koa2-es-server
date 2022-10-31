@@ -10,7 +10,7 @@ import crud from "./db/crud.js"
 import routerSetup from './router/index.js'
 import useToken from "./hooks/useJwt.js";
 import routerUrlToken from './config/url-jwt.js'
-
+import corsConifg from './config/cors-conifg.js'
 
 export default async function createApp() {
     const create = new koa()
@@ -20,11 +20,7 @@ export default async function createApp() {
 
     create
         .use(
-            koacors({
-                // 跨域处理
-                // 允许携带cookies
-                credentials: true,
-            }),
+            koacors(corsConifg),
         )
         .use(serve(resolve('./public')))
         .use(
