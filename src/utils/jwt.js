@@ -8,7 +8,7 @@
  * const {sign,verify} = jsonwebtoken
  * */
 import jsonwebtoken from 'jsonwebtoken'
-import cert from '../config/Cert-jwt.js'
+import { cert } from '../config/config.js'
 
 /*
 *
@@ -23,25 +23,25 @@ import cert from '../config/Cert-jwt.js'
 * header: 自定义头部
 * keyid: 自行理解
 * */
-export function jwtSign(data = '', opts) {
-    const options = opts || {
-        algorithm: 'HS384',
-        expiresIn: '72h',
-        issuer: 'zaizai'
-    }
-    return jsonwebtoken.sign(data, cert, options)
+export function jwtSign (data = '', opts) {
+		const options = opts || {
+				algorithm: 'HS384',
+				expiresIn: '72h',
+				issuer: 'zaizai'
+		}
+		return jsonwebtoken.sign(data, cert, options)
 }
 
-export function jwtVerify(token) {
-    try {
-        return jsonwebtoken.verify(token, cert, {
-            issuer: 'zaizai',
-            algorithms: ['HS384'],
-        })
-    } catch (e) {
-        return {
-            code: 500,
-            message: error.message,
-        };
-    }
+export function jwtVerify (token) {
+		try {
+				return jsonwebtoken.verify(token, cert, {
+						issuer: 'zaizai',
+						algorithms: ['HS384'],
+				})
+		} catch (e) {
+				return {
+						code: 500,
+						message: error.message,
+				};
+		}
 }

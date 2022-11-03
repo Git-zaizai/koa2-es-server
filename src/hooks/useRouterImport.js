@@ -4,7 +4,7 @@ import { pathToFileURL } from "url";
 
 /**
  * @function 获取函数
- * @param Object Object import()导入的对象
+ * @param module Object import()导入的对象
  * */
 export function getFunction (module) {
 		for (const key in module) {
@@ -17,18 +17,16 @@ export function getFunction (module) {
 
 /**
  * @function 判断url是否规范
- * @param string url 路由url
+ * @param url 路由url
  * */
 export function isurl (url) {
-		if (url && url !== '' && /^([/])/.test(url)) {
-				return true
-		}
-		return false
+		return url && url !== '' && /^([/])/.test(url);
+
 }
 
 /**
  * @function 获取文件名
- * @param string 文件路径
+ * @param filepath 文件路径
  * */
 function geturl (filepath) {
 		return '/' + filepath.split('\\').pop().split('.').shift()
@@ -36,11 +34,11 @@ function geturl (filepath) {
 
 /**
  * @function 判断路由请求方法是否正确
- * @param string method
+ * @param method 请求方法
  * */
 export function ismethod (method) {
 		if (method && method !== '') {
-				const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE']
+				const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE','ALL','VERB']
 				if (methodfun.includes(method.toUpperCase())) return true
 		}
 		return false
@@ -49,7 +47,8 @@ export function ismethod (method) {
 /**
  * @function 对导入的模块进行处理
  * @param defaultmodule import()导入的模块
- * @param method 默认的请求方法
+ * @param defaultmethod 请求方法
+ * @param filepath 文件路径
  * */
 export function routersPush (defaultmodule, defaultmethod, filepath) {
 		const routeList = []
@@ -73,7 +72,7 @@ export function routersPush (defaultmodule, defaultmethod, filepath) {
 						}
 				})
 		} else {
-				//导出格式为Object 但是url有问题
+				//导出格式为Object 判断url有问题，就是使用文件路径做url
 				if (!isurl(defaultmodule.url)) {
 						defaultmodule.url = geturl(filepath)
 				}

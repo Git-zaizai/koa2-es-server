@@ -1,4 +1,4 @@
-import {resolve} from 'path'
+import { resolve } from 'path'
 
 /**
  * @var uploads 设置文件的默认保存目录，不设置则保存在系统临时目录下
@@ -20,3 +20,8 @@ export const imgType = ['png', 'jpg', 'jpeg', 'gif', 'svg']
  * @var imgpath 图片存放路径  后面会拼接每天的日期
  * */
 export const imgpath = resolve('./public/img')
+
+/**
+ * @var cert 秘钥
+ * */
+export const cert = `mi_yao`

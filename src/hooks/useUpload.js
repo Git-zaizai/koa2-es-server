@@ -1,6 +1,6 @@
 import fs, { existsSync, mkdirSync } from 'fs'
 import { join } from "path";
-import { pathUpload, imgpath, imgType } from '../config/path-upload.js'
+import { pathUpload, imgpath, imgType } from '../config/config.js'
 
 /**
  * @function 查看文件夹是否存在，不存在则创建
