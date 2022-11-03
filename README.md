@@ -66,16 +66,16 @@ yran mon  自动热重启服务 | node app.js
 
 ```json
 "dependencies": {
-   "axios": "^0.26.1",
-   "jsonwebtoken": "^8.5.1",
-   "koa": "^2.13.4",
-   "koa-body": "^4.2.0",
-   "koa-logger": "^3.2.1",
-   "koa-router": "^10.1.1",
-   "koa-static": "^5.0.0",
-   "koa2-cors": "^2.0.6",
-   "mysql2": "^2.3.3",
-   "nodemon": "^2.0.15"
+  "axios": "^0.26.1",
+  "jsonwebtoken": "^8.5.1",
+  "koa": "^2.13.4",
+  "koa-body": "^4.2.0",
+  "koa-logger": "^3.2.1",
+  "koa-router": "^12.0.0",
+  "koa-static": "^5.0.0",
+  "koa2-cors": "^2.0.6",
+  "mysql2": "^2.3.3",
+  "nodemon": "^2.0.15"
 }
 ```
 
