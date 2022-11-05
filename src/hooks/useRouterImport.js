@@ -21,7 +21,6 @@ export function getFunction (module) {
  * */
 export function isurl (url) {
 		return url && url !== '' && /^([/])/.test(url);
-
 }
 
 /**
@@ -29,7 +28,11 @@ export function isurl (url) {
  * @param filepath 文件路径
  * */
 function geturl (filepath) {
-		return '/' + filepath.split('\\').pop().split('.').shift()
+		//处理windows与linux获取路径不同的问题
+		if (filepath.includes('\\')) {
+				return '/' + filepath.split('\\').pop().split('.').shift()
+		}
+		return '/' + filepath.split('/').pop().split('.').shift()
 }
 
 /**
@@ -38,7 +41,7 @@ function geturl (filepath) {
  * */
 export function ismethod (method) {
 		if (method && method !== '') {
-				const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE','ALL','VERB']
+				const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE', 'ALL', 'VERB']
 				if (methodfun.includes(method.toUpperCase())) return true
 		}
 		return false
