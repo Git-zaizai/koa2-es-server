@@ -4,15 +4,15 @@
  * 执行方法: select, selectWhere, insert, update, del
  * 表名: 数据库表名
  * */
+import { stringToType } from '../utils/index.js'
 
 export default {
 		routerModule: 'all',
 		url: '/crud/:action/:tableName',
 		async init (ctx) {
-				// console.log(ctx.params)
 				let data = null
 				if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') {
-						data = ctx.request.query
+						data = stringToType(ctx.request.query)
 				} else if (ctx.request.method === 'POST') {
 						data = ctx.request.body
 				} else {

@@ -5,8 +5,8 @@ import koabody from 'koa-body'
 import koalogger from 'koa-logger'
 import { resolve } from 'path'
 import { uploads } from './config/config.js'
-import query from './db/db.js'
-import crud from "./db/crud.js"
+import query from './db/mysql.js'
+import crud from "./db/mysql-crud.js"
 import routerSetup from './router/index.js'
 import useToken from "./hooks/useJwt.js";
 import routerUrlToken from './config/url-jwt.js'
@@ -39,7 +39,6 @@ export default async function createApp() {
 
     const router = await routerSetup()
     create.use(router.routes(), router.allowedMethods())
-
 
     return { app: create, port: 4370 }
 }

@@ -1,4 +1,4 @@
-import query from './db.js'
+import query from './mysql.js'
 
 function testingTltieName(tltiename) {
     if (typeof tltiename !== "string") {

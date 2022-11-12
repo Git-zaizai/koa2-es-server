@@ -26,41 +26,50 @@ yran mon  自动热重启服务 | node app.js
 
 ```bash
 .
-├──public # 资源文件夹
-	├──img # 都懂
-    ├──uploads # 文件上传保存路径
-    ├──uploads_file # 上传二进制文件
-    ├──index.html # 用例页面
-├──src
-	├──config
-		├──Cert-jwt.js # jwt秘配置
-		├──mysql-config.js # mysql配置
-		├──path-upload.js # 对于文件上传的配置
-		├──url-jwt.js # Jwt路由认证配置
-	├──controller # api编写目录 可以自动导入自动注册路由 *有一定的规范*
-		├──index.js # 一些示例
-		├──sql.js # 数据库操作示例
-	├──db
-		├──db.js # 链接数据库
-		├──crud.js # 简单的对crud的封装
-	├──hooks # 中间件或hooks函数
-		├──useJwt.js # 路由Jwt认证中间件
-		├──useUpload.js # 文件上传hooks函数
-		├──useRouterImport.js # 自动导入注册路由函数
-	├──router # 路由
-		├──index.js
-	├──types
-		├──currentpath.js # 声明 __filename | __dirname
-	├──utils
-		├──axios # axios
-			├──axios.js 
-		├──jwt.js # jwt解密与解密函数
-├──.gitignore 
-├──app.js 入口文件
-├──package.json
-├──package-lock.json
-├──README.md
+|-- public # 资源文件夹
+|   |-- img # 都懂
+|   |-- index.html # 文件上传保存路径
+|   |-- uploads  # 文件上传保存路径
+|   `-- uploads_file #上传二进制文件
+|-- src
+|   |-- config
+|   |   |-- config.js # 各种配置
+|   |   |-- cors-conifg.js # 跨域配置
+|   |   |-- db-config.js # 数据库配置
+|   |   `-- url-jwt.js # Jwt路由认证管理
+|   |-- controller
+|   |   |-- crudApi.js # CRUD接口
+|   |   |-- exportFun.js 
+|   |   |-- index.js # 一些示例
+|   |   `-- sql.js # 数据库操作示例
+|   |-- db
+|   |   |-- mysql-crud.js # 简单的对mysql crud的封装
+|   |   |-- mongodb.js # 连接mongodb
+|   |   `-- mysql.js # 连接mysql
+|   |-- hooks # 中间件或hooks函数
+|   |   |-- useJwt.js # 路由Jwt认证中间件
+|   |   |-- useRouterImport.js # 自动导入注册路由函数
+|   |   `-- useUpload.js # 文件上传hooks函数
+|   |-- router # 路由
+|   |   `-- index.js
+|   |-- types
+|   |   `-- currentpath.js # 声明 __filename | __dirname
+|   |-- utils
+|   |   |-- axios # axios
+|   |   |   `-- axios.js
+|   |   |-- index.js # 一下utils函数
+|   |   `-- jwt.js # jwt解密与解密函数
+|   `-- app.js # 主文件
+|
+|-- README.md
+|-- koa2.sql
+|-- main.js # 入口文件
+|-- nodemon.json # nodemon热启动配置文件
+|-- package-lock.json
+|-- package.json
+|-- pnpm-lock.yaml
 ```
+
 
 ## 引入的插件
 
