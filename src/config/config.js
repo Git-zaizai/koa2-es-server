@@ -10,7 +10,6 @@ export const uploads = resolve('./public/uploads_file')
  * @var pathUpload 默认文件上传写入路径
  * */
 export const pathUpload = resolve('./public/uploads')
-
 /**
  * @var fileImg 要单独往 img 文件夹里放的文件格式
  * */
@@ -21,6 +20,10 @@ export const imgType = ['png', 'jpg', 'jpeg', 'gif', 'svg']
  * */
 export const imgpath = resolve('./public/img')
 
+/**
+ * @var staticPath 开放静态资源文件夹
+ * */
+export const staticPath = resolve('./public')
 /**
  * @var cert 秘钥
  * */

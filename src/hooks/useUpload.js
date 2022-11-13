@@ -1,6 +1,6 @@
 import fs, { existsSync, mkdirSync } from 'fs'
 import { join } from "path";
-import { pathUpload, imgpath, imgType } from '../config/config.js'
+import { pathUpload, imgpath, imgType, staticPath } from '../config/config.js'
 
 /**
  * @function 查看文件夹是否存在，不存在则创建
@@ -59,10 +59,11 @@ export function writeToFlieAsync (filepath, savepath) {
  * @return Promise {
  *                  name：原始文件名，
  *                  type：文件类型,
- *                  size：重命名文件，
+ *                  size：文件大小，
  *                  rename：重命名文件，
+ *                  networkPath：网络路径，
  *                  savepath：文件保存路径,
- *                  file：上传的二进制文件路径,
+ *                  binaryFilePath：上传的二进制文件路径,
  *                  lastModifiedDate：文件上传时间
  *                 }
  *                 error:
@@ -104,7 +105,11 @@ export async function useUpload (file) {
 
 				await writeToFlieAsync(file.path, savepath);
 
-				return { name, type, size, rename, savepath, path: file.path, lastModifiedDate }
+				//网络路径
+				let networkPath = savepath.replace(staticPath, '')
+				networkPath = networkPath.replaceAll('\\', '/')
+
+				return { name, type, size, rename, networkPath, savepath, binaryFilePath: file.path, lastModifiedDate }
 		} catch (e) {
 				return { code: 500, msg: '意外错误! 文件写入错误!', error: e }
 		}
