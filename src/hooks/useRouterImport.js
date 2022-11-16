@@ -105,7 +105,10 @@ export const useRouterImport = async (route, opts) => {
 		for (const fileitem of readdirSync(pathresolve)) {
 				const fileItemPaht = join(pathresolve, fileitem)
 				if (statSync(fileItemPaht).isDirectory()) {
-						useRouterImport(fileItemPaht)
+						/* BUG */
+						// useRouterImport(fileItemPaht)
+						middleware.path = fileItemPaht
+						useRouterImport(route, middleware)
 				} else {
 						// pathToFileURL(fileItemPaht) 把绝对路径转换为 file:///c:/***** 路径
 						const itemModule = await import(
