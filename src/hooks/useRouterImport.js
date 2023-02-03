@@ -58,8 +58,8 @@ export function routersPush (defaultmodule, defaultmethod, filepath) {
 		// 导出的是函数的话，使用默认请求配置，文件名为url路径
 		if (typeof defaultmodule === 'function') {
 				routeList.push({
-						method: defaultmethod,
 						url: geturl(filepath),
+						method: defaultmethod,
 						fun: defaultmodule
 				})
 		} else if (Array.isArray(defaultmodule)) {
@@ -105,9 +105,7 @@ export const useRouterImport = async (route, opts) => {
 		for (const fileitem of readdirSync(pathresolve)) {
 				const fileItemPaht = join(pathresolve, fileitem)
 				if (statSync(fileItemPaht).isDirectory()) {
-						/* BUG */
-						// useRouterImport(fileItemPaht)
-						middleware.path = fileItemPaht
+						middleware.path = middleware.path + '/' + fileitem
 						useRouterImport(route, middleware)
 				} else {
 						// pathToFileURL(fileItemPaht) 把绝对路径转换为 file:///c:/***** 路径
