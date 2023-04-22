@@ -1,19 +1,20 @@
 /**
  * 路由
  * */
-import koarouter from 'koa-router'
-import { useRouterImport } from "../hooks/useRouterImport.js"
+import Router from 'koa-router'
+import { useRouterImport } from "../use/useRouterImport.js"
+import useBodyValue from '../use/useBodyValue.js'
 
-const router = new koarouter()
+const router = new Router()
+
+router.use(useBodyValue())
 
 router.get('/get', ctx => {
-    ctx.body = { code: 1, msg: '请求成功', data: '这个是测试路由' }
+    return '测试路由'
 })
 
 export default async () => {
-    // const routeImport = new koarouter()
     //自动注册路由
     await useRouterImport(router, { path: 'controller' })
-    // router.use(routeImport.routes(), routeImport.allowedMethods())
     return router
 }

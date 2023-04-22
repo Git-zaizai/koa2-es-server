@@ -1,8 +1,8 @@
 /**
- * 管理需要验证的路由
+ * 不需要验证的路由
  * */
 
-export const webUrlToken = ['/token']
+export const webUrlToken = ['/login']
 
 export const wxUrlToken = ['/wx/upload']
 

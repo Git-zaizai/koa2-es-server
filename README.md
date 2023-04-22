@@ -2,7 +2,8 @@
 
 ## 前言
 
-一个基于koa.js 2x的简单后端api脚手架 O(∩_∩)O。这个小工具可以用来学习交流或者简单的搞一下后端，不推荐使用正式的项目，问题有很多请注意哦 ！
+一个基于koa.js 2x的简单后端api脚手架 O(∩_∩)
+O。这个小工具可以用来学习交流或者简单的搞一下后端，不推荐使用正式的项目，问题有很多请注意哦 ！
 
 由于是使用ES模块规范，没有使用CommonJS 规范，也没有使用babel进行兼容有些地方请去官网了解（大部分都可以使用）
 
@@ -14,10 +15,9 @@
 
 ```
 git clone https://github.com/Git-zaizai/koa-cli-test.git
-git clone https://github.91chi.fun/https://github.com/Git-zaizai/koa-cli-test.git  加速通道
 cd koa-cli-test
 yarn
-yran mon  自动热重启服务 | node app.js
+yran mon 热重启服务 | node app.js
 ```
 
 然后使用浏览器打开 http://localhost:4370 即可
@@ -25,66 +25,65 @@ yran mon  自动热重启服务 | node app.js
 ## 目录结构说明
 
 ```bash
-.
-|-- public # 资源文件夹
-|   |-- img # 都懂
-|   |-- index.html # 文件上传保存路径
-|   |-- uploads  # 文件上传保存路径
-|   `-- uploads_file #上传二进制文件
+|-- public
+|   |-- img # 图片上传保存路径
+|   |-- index.html
+|   |-- uploads # 文件上传保存保存路径
+|    `-- uploads_file # 文件上传二进制文件
 |-- src
+|   |               
 |   |-- config
 |   |   |-- config.js # 各种配置
 |   |   |-- cors-conifg.js # 跨域配置
 |   |   |-- db-config.js # 数据库配置
-|   |   `-- url-jwt.js # Jwt路由认证管理
+|   |    `-- url-jwt.js # Jwt路由认证管理
 |   |-- controller
-|   |   |-- crudApi.js # CRUD接口
-|   |   |-- exportFun.js 
+|   |   |-- crudApi.js # MySQL CRUD接口
+|   |   |-- exportFun.js # 一些示例
 |   |   |-- index.js # 一些示例
-|   |   `-- sql.js # 数据库操作示例
+|   |    `-- sql.js # 数据库操作示例
 |   |-- db
+|   |   |-- mongodb.js # mongodb连接
 |   |   |-- mysql-crud.js # 简单的对mysql crud的封装
-|   |   |-- mongodb.js # 连接mongodb
 |   |   `-- mysql.js # 连接mysql
-|   |-- hooks # 中间件或hooks函数
+|   |-- router
+|   |   `-- index.js # 路由
+|   |-- types
+|   |   `-- currentpath.js # 声明 __filename | __dirname
+|   |-- use # 中间件
+|   |   |-- useBodyValue.js # 统一返回值
 |   |   |-- useJwt.js # 路由Jwt认证中间件
 |   |   |-- useRouterImport.js # 自动导入注册路由函数
 |   |   `-- useUpload.js # 文件上传hooks函数
-|   |-- router # 路由
-|   |   `-- index.js
-|   |-- types
-|   |   `-- currentpath.js # 声明 __filename | __dirname
-|   |-- utils
-|   |   |-- axios # axios
+|   `-- utils
+|   |   |-- axios
 |   |   |   `-- axios.js
 |   |   |-- index.js # 一下utils函数
-|   |   `-- jwt.js # jwt解密与解密函数
-|   `-- app.js # 主文件
-|
-|-- README.md
+|   |   `-- jwt.js  # jwt解密与解密函数
+|   `-- app.js
 |-- koa2.sql
 |-- main.js # 入口文件
 |-- nodemon.json # nodemon热启动配置文件
-|-- package-lock.json
 |-- package.json
 |-- pnpm-lock.yaml
+|-- README.md
 ```
-
 
 ## 引入的插件
 
 ```json
 "dependencies": {
-  "axios": "^0.26.1",
-  "jsonwebtoken": "^8.5.1",
-  "koa": "^2.13.4",
-  "koa-body": "^4.2.0",
-  "koa-logger": "^3.2.1",
-  "koa-router": "^12.0.0",
-  "koa-static": "^5.0.0",
-  "koa2-cors": "^2.0.6",
-  "mysql2": "^2.3.3",
-  "nodemon": "^2.0.15"
+    "@koa/cors": "^4.0.0",
+    "axios": "^0.26.1",
+    "jsonwebtoken": "9.0.0",
+    "koa": "^2.13.4",
+    "koa-body": "^6.0.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.0",
+    "koa-static": "^5.0.0",
+    "mongodb": "^4.11.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15"
 }
 ```
 
@@ -96,16 +95,17 @@ yran mon  自动热重启服务 | node app.js
 // router.js
 import koarouter from 'koa-router'
 import { useRouterImport } from "../hooks/useRouterImport.js"
+
 const router = new koarouter()
 export default async () => {
     //自动注册路由
-    //path 要自动导入的目录名
+    //path 要自动导入的目录名 scr目录下
     await useRouterImport(router, { path: 'controller' })
     return router
 }
 
 // app.js
-const router = routerSetup()
+const router = await routerSetup()
 app.use(router.routes(), router.allowedMethods())
 ```
 
@@ -123,33 +123,73 @@ app.use(router.routes(), router.allowedMethods())
 
 #### 可以导出的格式
 
+当导出函数时，
+**url路径为文件名**,**method默认为post**，
+导出对象时**不写url或者url开头不是 "/"，
+url默认为文件名**，以数组的方式导出
+**url是必须的**，暂不支持添加url ,当然你也可以自行注册路由api
+
 ```javascript
-export default function(){}
+export default function () {}
 
 export default {
-    url:'', // 可选
-    method:'', // 可选
-    fun(){} // 必须
+    url: '', // 可选
+    method: '', // 可选
+    fun() {} // 必须
 }
 
-export default[{
-    url:'', //必须
-    method:'', // 可选
-    fun(){} // 必须
-},{
-    url:'', // 必须
-    method:'', // 可选
-    fun(){} // 必须
+export default [{
+    url: '', //必须
+    method: '', // 可选
+    fun() {} // 必须
+}, {
+    url: '', // 必须
+    method: '', // 可选
+    fun() {} // 必须
 }]
 ```
 
-当导出函数时，**url路径为文件名**,**method默认为post**，导出对象时**不写url或者url开头不是 "/"，url默认为文件名**，以数组的方式导出**url是必须的**，暂不支持添加url ,当然你也可以自行注册路由api
+#### 统一返回值 useBodyValue.js
 
+在router/index.js文件中，它注册在router中
+注意事项：**默认只有在返回正常（ctx.response.stuts === 200）才会进行处理**，其他问题不进行处理
+额，你想处理也可以重写或者改了它，反正很简单
 
+``` javascript
+// 默认的统一返回值
+{ code: 200, data: body, msg: '请求成功' }
+/** 用法： **/
+// 可以 return 回去 任意类型
+router.get('/get', ctx => {
+    return '测试路由'
+})
+
+// 也可以正常的使用ctx.body的方式
+router.get('/get', ctx => {
+    ctx.body = 'null O(∩_∩)O 哦'
+})
+
+// 返回值是基础类型时（不包括 null、undefined、''） 自动放在data中
+return String | Number | Boolean | Array
+
+// 当然如果返回的对象，会经过下面的处理方式，
+if (typeOf(body) === 'Object') {
+    const { code, data, msg } = body
+    let resultData = null
+    if (!data || data === '') {
+        resultData = []
+    }
+    ctx.body = {
+        code: code ?? 200,
+        data: resultData,
+        msg: msg ?? '请求成功'
+    }
+}
+```
 
 ## 版本
 
-#### 1.0 正在更新 （⊙ꇴ⊙）
+#### 1.5 正在更新 （⊙ꇴ⊙）
 
 目前就是慢慢加的东西，主要还是学习这个目的为主，并不是正式的东西，所以慢慢加。
 

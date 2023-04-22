@@ -7,14 +7,16 @@
  * }
  * */
 export const MYSQL_CONFIG = {
-		host: 'localhost',
-		port: 3306,
-		user: 'root',
-		password: '123456',
-		database: 'koa2',
-		connectionLimit: 10
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: '123456',
+    database: 'koa2',
+    connectionLimit: 10
 }
-
+/**
+ * @export MONGDB_CONFIG MongoDB链接URL
+ * */
 export const MONGDB_CONFIG = {
-		url:'mongodb://localhost:27017/test'
+    url: 'mongodb://localhost:27017/test'
 }

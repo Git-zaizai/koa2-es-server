@@ -6,6 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+需要更新的地方.md
+pnpm-lock.yaml
 
 node_modules
 dist

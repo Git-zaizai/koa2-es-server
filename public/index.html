@@ -103,197 +103,191 @@
 </body>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-		axios.defaults.baseURL = 'http://localhost:4370'
+    axios.defaults.baseURL = 'http://localhost:4370'
 
-		function shouji (clas) {
-				const div = document.querySelector(clas)
-					.querySelectorAll('input[type=text]')
-				const value = []
-				div.forEach(item => {
-						value.push({ v: item.value, e: item.name })
-				})
-				return value
-		}
+    function shouji(clas) {
+        const div = document.querySelector(clas)
+            .querySelectorAll('input[type=text]')
+        const value = []
+        div.forEach(item => {
+            value.push({ v: item.value, e: item.name })
+        })
+        return value
+    }
 
-		function tableEl (data, cla) {
-				const elstr = `
-        <td>${data.id}</td>
-        <td>${data.zh}</td>
-        <td>${data.mm}</td>
-        <td>${data.name}</td>
+    function tableEl(data, cla) {
+        const elstr = `
+        <td>${ data.id }</td>
+        <td>${ data.zh }</td>
+        <td>${ data.mm }</td>
+        <td>${ data.name }</td>
         `
-				const tr = document.createElement('tr')
-				tr.id = `trid${data.id}`
-				tr.innerHTML = elstr
-				document.querySelector(cla).appendChild(tr)
-		}
+        const tr = document.createElement('tr')
+        tr.id = `trid${ data.id }`
+        tr.innerHTML = elstr
+        document.querySelector(cla).appendChild(tr)
+    }
 
-		let files = null;
-		document.querySelector('#file').addEventListener('change', function () {
-				console.log('asdkjhaslkdahskd')
-				files = this.files
-				var dataURL = URL.createObjectURL(files[0])
-				var img = document.createElement('img')
-				img.src = dataURL
-				img.style.height = '300px'
-				img.style.width = '300px'
-				document.querySelector('.imgs').appendChild(img)
-		})
-		document.querySelector('#but-file').onclick = function () {
-				const fromd = new FormData()
-				fromd.append('files', files[0])
-				axios({
-						method: 'post',
-						url: 'http://localhost:4370/web/upload',
-						data: fromd,
-						responseType: 'json'
-				}).then(res => {
-						console.log(res)
-				}).catch(err => {
-						console.log('请求错误', err)
-				})
-		}
+    let files = null;
+    document.querySelector('#file').addEventListener('change', function () {
+        console.log('asdkjhaslkdahskd')
+        files = this.files
+        var dataURL = URL.createObjectURL(files[0])
+        var img = document.createElement('img')
+        img.src = dataURL
+        img.style.height = '300px'
+        img.style.width = '300px'
+        document.querySelector('.imgs').appendChild(img)
+    })
+    document.querySelector('#but-file').onclick = function () {
+        const fromd = new FormData()
+        fromd.append('files', files[0])
+        axios({
+            method: 'post',
+            url: 'http://localhost:4370/web/upload',
+            data: fromd,
+            responseType: 'json'
+        }).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log('请求错误', err)
+        })
+    }
 
-		let token = ''
-		document.querySelector('.to-but').onclick = function () {
-				axios({
-						method: 'post',
-						url: '/web/jwt',
-						data: {
+    let token = ''
+    document.querySelector('.to-but').onclick = function () {
+        axios({
+            method: 'post',
+            url: '/web/jwt',
+            data: {
 
-								zh: document.querySelector('.to-zh').value,
-								mm: document.querySelector('.to-mm').value
-						},
-						responseType: 'json'
-				}).then(res => {
-						console.log(res)
-						document.querySelector('.to-so').querySelector('p').innerHTML =
-							res.data.token
-						token = res.data.token
-				})
-		}
+                zh: document.querySelector('.to-zh').value,
+                mm: document.querySelector('.to-mm').value
+            },
+            responseType: 'json'
+        }).then(res => {
+            console.log(res)
+            document.querySelector('.to-so').querySelector('p').innerHTML =
+                res.data.token
+            token = res.data.token
+        })
+    }
 
-		document.querySelector('.to-vsbut').onclick = function () {
-				if (token == '' || !token) {
-						alert('请先创建token')
-						return;
-				}
-				axios.post('/web/jwt/Verify', { token }, { responseType: 'json' })
-					.then(res => {
-							console.log('解密token：', res)
-							document.querySelector('.to-vs').querySelector('p').innerHTML =
-								JSON.stringify(res.data)
-					})
-		}
+    document.querySelector('.to-vsbut').onclick = function () {
+        if (token == '' || !token) {
+            alert('请先创建token')
+            return;
+        }
+        axios.post('/web/jwt/Verify', { token }, { responseType: 'json' })
+            .then(res => {
+                console.log('解密token：', res)
+                document.querySelector('.to-vs').querySelector('p').innerHTML =
+                    JSON.stringify(res.data)
+            })
+    }
 
-		document.querySelector('.to-select-token').onclick = function () {
-				axios.defaults.headers.common['token'] = token
-				axios.get('/token').then(res => {
-						alert('访问成功')
-						console.log('请求 /token 接口', res)
-				}).catch(e => {
-						console.log('请求 /token 接口失败:', e)
-						alert(e.response.data)
-						document.querySelector('.to-so').querySelector('p').innerHTML =
-							'访问失败，可以打开控制台查看错误信息'
-				})
-		}
+    document.querySelector('.to-select-token').onclick = function () {
+        axios.defaults.headers.common['token'] = token
+        axios.get('/token').then(res => {
+            alert('访问成功')
+            console.log('请求 /token 接口', res)
+        }).catch(e => {
+            console.log('请求 /token 接口失败:', e)
+            alert(e.response.data)
+            document.querySelector('.to-so').querySelector('p').innerHTML =
+                '访问失败，可以打开控制台查看错误信息'
+        })
+    }
 
-		/*
-        0 查询整个表
-        1 查询单条
-        2 修改
-        3 添加
-        4 删除
-        * */
-		const crudbut = document.querySelector('.crud-but')
-			.querySelectorAll('button')
+    /*
+     0 查询整个表
+     1 查询单条
+     2 修改
+     3 添加
+     4 删除
+     * */
+    const crudbut = document.querySelector('.crud-but')
+        .querySelectorAll('button')
 
-		/* 请求前的处理 */
-		function useButClk (index) {
-				const data = { crudtyle: index }
+    /* 请求前的处理 */
+    function useButClk(index) {
+        const data = { crudtyle: index }
 
-				if (index === 0) return data
+        if (index === 0) return data
 
-				const crudinput = shouji('.crud-input')
+        const crudinput = shouji('.crud-input')
 
-				if (index === 1) {
-						data.selectWhere = {
-								id: crudinput.at(-1).v || 1
-						}
-						return data
-				}
+        if (index === 1) {
+            data.selectWhere = {
+                id: crudinput.at(-1).v || 1
+            }
+            return data
+        }
 
-				if (index === 2) {
-						const update = {}
-						crudinput.forEach(item => {
-								update[item.e] = item.v
-						})
-						data.update = update
-						return data
-				}
+        if (index === 2) {
+            const update = {}
+            crudinput.forEach(item => {
+                update[item.e] = item.v
+            })
+            data.update = update
+            return data
+        }
 
-				if (index === 3) {
-						const add = {}
-						for (let i = 0; i < 3; i++) {
-								add[crudinput[i].e] = crudinput[i].v
-						}
-						data.add = add
-						return data
-				}
+        if (index === 3) {
+            const add = {}
+            for (let i = 0; i < 3; i++) {
+                add[crudinput[i].e] = crudinput[i].v
+            }
+            data.add = add
+            return data
+        }
 
-				data.del = crudinput.at(-1).v
-				return data
-		}
+        data.del = crudinput.at(-1).v
+        return data
+    }
 
-		function butclk (index) {
-				return async function () {
-						const data = useButClk(index)
-						const response = await axios.post('/sql/crud', data)
+    function butclk(index) {
+        return async function () {
+            const data = useButClk(index)
+            const response = await axios.post('/sql/crud', data)
 
-						/* 请求完成的处理 */
-						if (index === 0 || index === 3) {
-								const { data } = response.data
-								data.forEach(item => {
-										tableEl(item, '#table-add-el')
-								})
-						}
+            /* 请求完成的处理 */
+            if (index === 0 || index === 3) {
+                const { data } = response.data
+                data.forEach(item => {
+                    tableEl(item, '#table-add-el')
+                })
+            }
 
-						if (index === 1) {
-								tableEl(response.data.data[0], '#table-add-el2')
-						}
+            if (index === 1) {
+                tableEl(response.data.data[0], '#table-add-el2')
+            }
 
-						if (index === 2) {
-								const trid = document.querySelector(`#trid${data.update.id}`)
-								trid.innerHTML = `
-                    <td>${data.update.id}</td>
-                    <td>${data.update.zh}</td>
-                    <td>${data.update.mm}</td>
-                    <td>${data.update.name}</td>
+            if (index === 2) {
+                const trid = document.querySelector(`#trid${ data.update.id }`)
+                trid.innerHTML = `
+                    <td>${ data.update.id }</td>
+                    <td>${ data.update.zh }</td>
+                    <td>${ data.update.mm }</td>
+                    <td>${ data.update.name }</td>
                 `
-						}
+            }
 
-						if (index === 4) {
-								document.querySelector(`#trid${data.del}`).remove()
-						}
-				}
-		}
+            if (index === 4) {
+                document.querySelector(`#trid${ data.del }`).remove()
+            }
+        }
+    }
 
-		crudbut.forEach((item, index) => {
-				item.onclick = butclk(index)
-		})
+    crudbut.forEach((item, index) => {
+        item.onclick = butclk(index)
+    })
 
-		document.querySelector('#but-cs').onclick = function () {
-						console.log('asdasd')
-				axios.post('/crud/update/user', {
-						name: '用户update',
-						where: {
-								id: 2
-						}
-				}).then(res => {
-						console.log(res)
-				})
-		}
+    document.querySelector('#but-cs').onclick = function () {
+        axios.get('/get').then(res => {
+            alert(res.data.data)
+        })
+    }
 
 </script>
 

@@ -26,7 +26,7 @@ export const select = async (tltiename) => {
 }
 
 /**
- * @function 查询单挑数据
+ * @function 查询单挑数据或多条数据
  * @param where:Object 条件
  * */
 export const selectWhere = async (tltiename, where = {}) => {
@@ -48,7 +48,7 @@ export const insert = async (tltiename, data = {}) => {
  * @param data:object 数据
  * @param where:Object 条件
  * */
-export const update = async (tltiename, data = {}, where = {}) => {
+export const update = async (tltiename, data, where) => {
     const setdata = testingData(data);
     const setWhere = testingData(where)
     return await query(`update ${tltiename} set ? where ?`, [setdata, setWhere])
