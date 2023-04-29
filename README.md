@@ -54,11 +54,12 @@ yran mon 热重启服务 | node app.js
 |   |   |-- useBodyValue.js # 统一返回值
 |   |   |-- useJwt.js # 路由Jwt认证中间件
 |   |   |-- useRouterImport.js # 自动导入注册路由函数
-|   |   `-- useUpload.js # 文件上传hooks函数
+|   |   `
 |   `-- utils
 |   |   |-- axios
 |   |   |   `-- axios.js
 |   |   |-- index.js # 一下utils函数
+|   |   |-- upload.js # 文件上传函数
 |   |   `-- jwt.js  # jwt解密与解密函数
 |   `-- app.js
 |-- koa2.sql
@@ -72,7 +73,7 @@ yran mon 热重启服务 | node app.js
 ## 引入的插件
 
 ```json
-"dependencies": {
+"dependencies":{
     "@koa/cors": "^4.0.0",
     "axios": "^0.26.1",
     "jsonwebtoken": "9.0.0",

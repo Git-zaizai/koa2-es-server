@@ -54,7 +54,7 @@ export function writeToFlieAsync(filepath, savepath) {
 }
 
 /**
- * @function useUpload 文件上传处理
+ * @function upload 文件上传处理
  * @param file 上传的 file 类型对象
  * @return Promise {
  *                  name：原始文件名，
@@ -73,7 +73,7 @@ export function writeToFlieAsync(filepath, savepath) {
  *                   error: 错误对象
  *                 }
  * */
-export async function useUpload(file) {
+export async function upload(file) {
     try {
         // 原始文件名
         const name = file.originalFilename
