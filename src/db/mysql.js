@@ -8,16 +8,16 @@ export const MYSQL_NODE = mysql.createPool(MYSQL_CONFIG)
  * 有问题请在下方输出错误问题
  * */
 export async function mysqlTest() {
-
-    const testMySQL = () => new Promise((resolve, reject) => {
-        MYSQL_NODE.connect(err => {
-            if (err){
-                reject('MySql 连接 ===> 失败')
-                return
-            }
-            resolve('MySql 连接 ===> 成功')
+    const testMySQL = () =>
+        new Promise((resolve, reject) => {
+            MYSQL_NODE.getConnection(err => {
+                if (err) {
+                    reject('MySql 连接 ===> 失败')
+                    return
+                }
+                resolve('MySql 连接 ===> 成功')
+            })
         })
-    })
     try {
         const result = await testMySQL()
         console.log(result)
