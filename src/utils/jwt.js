@@ -10,18 +10,19 @@
 import jsonwebtoken from 'jsonwebtoken'
 import { cert } from '../config/config.js'
 
-/*
- *
- * algorithm:加密算法 默认同步签名 （HMAC SHA256）
- * expiresIn：过期时间
- * notBefore:在什么时候签发的(UNIX时间)，是否使用是可选的；
- * audience: 观众 接收该JWT的一方，是否使用是可选的；
- * issuer:该JWT的签发者，是否使用是可选的；
- * jwtid: 给jwt一个id
- * subject:主题
- * noTimestamp :没有时间戳
- * header: 自定义头部
- * keyid: 自行理解
+/**
+ * @param data{string}
+ * @param opts {Object}
+ *  *algorithm:加密算法 默认同步签名 （HMAC SHA256）
+ *  * expiresIn：过期时间
+ *  * notBefore:在什么时候签发的(UNIX时间)，是否使用是可选的；
+ *  * audience: 观众 接收该JWT的一方，是否使用是可选的；
+ *  * issuer:该JWT的签发者，是否使用是可选的；
+ *  * jwtid: 给jwt一个id
+ *  * subject:主题
+ *  * noTimestamp :没有时间戳
+ *  * header: 自定义头部
+ *  * keyid: 自行理解
  * */
 export function jwtSign(data = '', opts) {
     const options = opts || {
@@ -32,6 +33,9 @@ export function jwtSign(data = '', opts) {
     return jsonwebtoken.sign(data, cert, options)
 }
 
+/**
+ * @param token{string}
+ * */
 export function jwtVerify(token) {
     try {
         return jsonwebtoken.verify(token, cert, {

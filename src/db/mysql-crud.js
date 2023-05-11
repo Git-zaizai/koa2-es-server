@@ -1,11 +1,11 @@
 import query from './mysql.js'
 
-function testingTltieName(tltiename) {
-    if (typeof tltiename !== "string") {
-        throw new Error('Error: CRUD错误 tltiename 必须是字符串类型')
+function testingtitleName(titleName) {
+    if (typeof titleName !== "string") {
+        throw new Error('Error: CRUD错误 titleName 必须是字符串类型')
     }
-    if (tltiename === '' || tltiename === undefined || tltiename === null) {
-        throw new Error('Error: CRUD错误 请传入 tltiename 表名')
+    if (titleName === '' || titleName === undefined || titleName === null) {
+        throw new Error('Error: CRUD错误 请传入 titleName 表名')
     }
 }
 
@@ -18,49 +18,53 @@ function testingData(data) {
 
 /**
  * @function select 查整个表
- * @param tltiename:string 表名
+ * @param titleName{string} 表名
  * */
-export const select = async (tltiename) => {
-    testingTltieName(tltiename)
-    return await query(`select * from ${tltiename}`)
+export const select = async (titleName) => {
+    testingtitleName(titleName)
+    return await query(`select * from ${titleName}`)
 }
 
 /**
  * @function 查询单挑数据或多条数据
- * @param where:Object 条件
+ * @param titleName{string} 表名
+ * @param where{Object} 条件
  * */
-export const selectWhere = async (tltiename, where = {}) => {
+export const selectWhere = async (titleName, where = {}) => {
     const setWhere = testingData(where)
-    return await query(`select * from ${tltiename} where ?`, [setWhere])
+    return await query(`select * from ${titleName} where ?`, [setWhere])
 }
 
 /**
- * @function 添加
- * @param data:object 数据
+ * @function insert 添加
+ * @param titleName{string} 表名
+ * @param data{object} 数据
  * */
-export const insert = async (tltiename, data = {}) => {
+export const insert = async (titleName, data = {}) => {
     const setdata = testingData(data);
-    return await query(`insert into ${tltiename} set ?`, [setdata])
+    return await query(`insert into ${titleName} set ?`, [setdata])
 }
 
 /**
- * @function 修改
- * @param data:object 数据
- * @param where:Object 条件
+ * @function update 修改
+ * @param titleName{string} 表名
+ * @param data{object} 数据
+ * @param where{Object} 条件
  * */
-export const update = async (tltiename, data, where) => {
+export const update = async (titleName, data, where) => {
     const setdata = testingData(data);
     const setWhere = testingData(where)
-    return await query(`update ${tltiename} set ? where ?`, [setdata, setWhere])
+    return await query(`update ${titleName} set ? where ?`, [setdata, setWhere])
 }
 
 /**
- * @function 删除
- * @param where:Object 条件
+ * @function del 删除
+ * @param titleName{string} 表名
+ * @param where{Object} 条件
  * */
-export const del = async (tltiename, where = {}) => {
+export const del = async (titleName, where = {}) => {
     const setWhere = testingData(where)
-    return await query(`delete from ${tltiename} where ?`, [setWhere])
+    return await query(`delete from ${titleName} where ?`, [setWhere])
 }
 /**
  * @export {select:查整个表,selectWhere:查询单挑数据,insert:添加,update:修改,del:删除}

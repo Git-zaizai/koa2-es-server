@@ -90,11 +90,14 @@ export function routersPush(defaultmodule, defaultmethod, filepath) {
 
 /**
  * @function 自动添加路由
- * @param route koa-router的实例
- * @param opts Object {
- *     path:默认自动导入路径 scr里面的路径
- *     defaultRequestmethod:默认请求方式
- * }
+ * @param route{Object} koa-router的实例
+ * @param opts {{
+ *     path:string;
+ *     defaultRequestmethod:string;
+ * }}
+ * path:默认自动导入路径 scr里面的路径
+ * defaultRequestmethod:默认请求方式
+ *
  * */
 export const useRouterImport = async (route, opts) => {
     const middleware = Object.assign({

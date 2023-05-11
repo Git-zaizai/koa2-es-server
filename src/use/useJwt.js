@@ -1,8 +1,8 @@
 import { jwtVerify } from '../utils/jwt.js'
 
 /**
- * @param urlList Array 转入不需要检测的路由
- * @param isOpen Boolean 判断是否开启JWT中间件
+ * @param urlList{Array<string>} 转入不需要检测的路由
+ * @param isOpen{boolean} 判断是否开启JWT中间件
  * */
 export default (urlList = [], isOpen = true) => async (ctx, next) => {
     if (!isOpen) {

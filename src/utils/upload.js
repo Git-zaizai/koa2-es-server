@@ -4,7 +4,7 @@ import { pathUpload, imgpath, imgType, staticPath } from '../config/config.js'
 
 /**
  * @function 查看文件夹是否存在，不存在则创建
- * @param path:string 文件路径
+ * @param path {string} 文件路径
  * */
 export function testingFileFolder(path) {
     if (!existsSync(path)) {
@@ -14,7 +14,7 @@ export function testingFileFolder(path) {
 
 /**
  * @function FileFolderName 文件夹名
- * @return string YY-MM-DD
+ * @return {string} YY-MM-DD
  * */
 export function FileFolderName() {
     const _date = new Date()
@@ -28,9 +28,9 @@ export function FileFolderName() {
 
 /**
  * @function writeToFlie 写入文件函数
- * @param filepath 读取二进制文件路径
- * @param savepath 保存文件 | 写入路径
- * @returns Promise {code: 200 成功 | 500 失败, msg: 提示, error: 错误对象}
+ * @param filepath {string} 读取二进制文件路径
+ * @param savepath {string} 保存文件 | 写入路径
+ * @returns Promise<{code: 成功 | 500 失败, msg: 提示, error: 错误对象}>
  * */
 export function writeToFlieAsync(filepath, savepath) {
     return new Promise((resolve, reject) => {
@@ -54,24 +54,37 @@ export function writeToFlieAsync(filepath, savepath) {
 }
 
 /**
- * @function upload 文件上传处理
- * @param file 上传的 file 类型对象
- * @return Promise {
- *                  name：原始文件名，
- *                  type：文件类型,
- *                  size：文件大小，
- *                  rename：重命名文件，
- *                  networkPath：网络路径，
- *                  savepath：文件保存路径,
- *                  binaryFilePath：上传的二进制文件路径,
- *                  lastModifiedDate：文件上传时间
- *                 }
- *                 error:
- *                 {
- *                   code:500,
- *                   msg: '意外错误! 文件写入错误!',
- *                   error: 错误对象
- *                 }
+ * @function upload 文件处理函数
+ * @param file{File} 上传的 file 类型对象
+ * @return {Promise<{
+ * name:string;
+ * type:string;
+ * size:number;
+ * networkPath:string;
+ * savepath:string;
+ * binaryFilePath:string;
+ * binaryFilePath:string;
+ * }> | {
+ * code:number;
+ * msg:string;
+ * error:ErrorEvent
+ * }}
+ * {
+ * name：原始文件名，
+ *  type：文件类型,
+ *  size：文件大小，
+ *  rename：重命名文件，
+ *  networkPath：网络路径，
+ *  savepath：文件保存路径,
+ *  binaryFilePath：上传的二进制文件路径,
+ *  lastModifiedDate：文件上传时间
+ *}
+ *error:
+ *{
+ *  code:500,
+ *  msg: '意外错误! 文件写入错误!',
+ *  error: 错误对象
+ *}
  * */
 export async function upload(file) {
     try {

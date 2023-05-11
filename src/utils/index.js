@@ -1,3 +1,6 @@
+/**
+ * @param {{[string]:string}} data
+ * */
 export function stringToType(data) {
     const result = data
     for (const itemKey in data) {
@@ -11,6 +14,7 @@ export function stringToType(data) {
     }
     return result
 }
+
 
 export function typeOf(data) {
     return Object.prototype.toString.call(data).slice(8, -1);
