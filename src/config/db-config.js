@@ -18,5 +18,6 @@ export const MYSQL_CONFIG = {
  * @export MONGDB_CONFIG MongoDB链接URL
  * */
 export const MONGDB_CONFIG = {
-    url: 'mongodb://localhost:27017/test'
+    url: 'mongodb://localhost:27017/',
+    database: 'gadgets'
 }
