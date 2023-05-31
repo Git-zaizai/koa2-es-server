@@ -68,11 +68,4 @@ export default [
             }
         },
     },
-    {
-        routerModule: 'get',
-        url: '/usevalue',
-        init() {
-            return '测试 useBodyValue 中间件'
-        }
-    }
 ]

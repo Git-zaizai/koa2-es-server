@@ -2,12 +2,10 @@ import { typeOf } from '../utils/index.js'
 
 export default () => async (ctx, next) => {
     const result = await next()
-    if (ctx.response.status === 404) {
+    if (ctx.response.status === 200) {
         const body = result ?? ctx.body
         if (!body || body === '') {
-            // ctx.body = { code: 200, data: [], msg: '请求成功' }
-            ctx.response.status = 404
-            ctx.body = '接口未定义或没有返回值'
+            ctx.body = { code: 200, data: [], msg: '请求成功' }
             return
         }
         if (typeOf(body) === 'String' || typeOf(body) === 'Number' || typeOf(body) === 'Boolean') {
