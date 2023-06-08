@@ -110,7 +110,6 @@ export default [
                             result = await tableDB.find(where).toArray()
                         }else {
                             result = await tableDB.findOne(where)
-                            console.log(result)
                         }
                         break
                     default:

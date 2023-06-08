@@ -62,7 +62,7 @@ export default [
         routerModule: 'get',
         url: '/token',
         init(ctx) {
-            ctx.body = {
+            return ctx.body = {
                 code: 200,
                 msg: '访问成功',
             }
