@@ -1,10 +1,7 @@
 {
-  "watch": [
-    "src/",
-    "main.js"
-  ],
+  "watch": ["src/", "index.js"],
+  "ignore": ["public/", "node_modules"],
   "env": {
-    "ENV": "开发环境",
     "NODE_ENV": "development"
   }
 }

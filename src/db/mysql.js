@@ -1,6 +1,5 @@
 import mysql from 'mysql2'
 import { MYSQL_CONFIG } from '../config/db-config.js'
-
 //创建连接池
 export const MYSQL_NODE = mysql.createPool(MYSQL_CONFIG)
 

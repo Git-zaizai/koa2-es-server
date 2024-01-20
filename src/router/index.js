@@ -2,19 +2,19 @@
  * 路由
  * */
 import Router from 'koa-router'
-import { useRouterImport } from "../use/useRouterImport.js"
-import useBodyValue from '../use/useBodyValue.js'
+import useResponse from '../use/useResponse.js'
+import routeGlob from './routeGlob.js'
 
 const router = new Router()
 
-router.use(useBodyValue())
-
-router.get('/get', ctx => {
-    return '测试路由'
-})
+router.use(useResponse())
 
 export default async () => {
-    //自动注册路由
-    await useRouterImport(router, { path: 'controller' })
-    return router
+  //自动注册路由
+  // await useRouterImport(router, { path: 'controller' })
+  const routes = await routeGlob()
+  for (const item of routes) {
+    router[item.method](item.url, item.fn)
+  }
+  return router.routes()
 }

@@ -73,9 +73,9 @@ yran mon 热重启服务 | node app.js
 ## 引入的插件
 
 ```json
-"dependencies":{
+"dependencies": {
     "@koa/cors": "^4.0.0",
-    "axios": "^0.26.1",
+    "dayjs": "^1.11.10",
     "jsonwebtoken": "9.0.0",
     "koa": "^2.13.4",
     "koa-body": "^6.0.1",
@@ -85,7 +85,7 @@ yran mon 热重启服务 | node app.js
     "mongodb": "^4.11.0",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15"
-}
+  }
 ```
 
 ## 自动注册路由
