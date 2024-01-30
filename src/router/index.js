@@ -16,5 +16,6 @@ export default async () => {
   for (const item of routes) {
     router[item.method](item.url, item.fn)
   }
+  console.log('🚀 ~ router:', router)
   return router.routes()
 }

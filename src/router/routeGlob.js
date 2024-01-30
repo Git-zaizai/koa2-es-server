@@ -34,17 +34,7 @@ export function isMethod(method, defaultMethod) {
   if (!method) {
     return defaultMethod
   }
-  const methodfun = [
-    'HEAD',
-    'OPTIONS',
-    'GET',
-    'PUT',
-    'PATCH',
-    'POST',
-    'DELETE',
-    'ALL',
-    'VERB'
-  ]
+  const methodfun = ['HEAD', 'OPTIONS', 'GET', 'PUT', 'PATCH', 'POST', 'DELETE', 'ALL', 'VERB']
   if (methodfun.includes(method.toUpperCase())) return method
   throw Error(`Error: ${method} 请方法有问题`)
 }
@@ -57,7 +47,7 @@ export function isMethod(method, defaultMethod) {
 export function createRoute(model, method) {
   if (typeof model.module === 'function') {
     return {
-      url: model.file.fileName,
+      url: '/' + model.file.fileName.split('.').shift(),
       method,
       fn: model.module
     }
@@ -74,7 +64,7 @@ export function createRoute(model, method) {
  * @function 自动导入路由
  *
  */
-export default async (options) => {
+export default async options => {
   const Options = {
     method: 'post',
     globPath: '../controller',
@@ -88,7 +78,7 @@ export default async (options) => {
   const routers = []
   for (const iterator of modules) {
     if (Array.isArray(iterator.module.default)) {
-      iterator.module.default.forEach((item) => {
+      iterator.module.default.forEach(item => {
         routers.push({
           file: { ...iterator.file },
           module: item
@@ -99,5 +89,5 @@ export default async (options) => {
       routers.push(iterator)
     }
   }
-  return routers.map((item) => createRoute(item, Options.method))
+  return routers.map(item => createRoute(item, Options.method))
 }
